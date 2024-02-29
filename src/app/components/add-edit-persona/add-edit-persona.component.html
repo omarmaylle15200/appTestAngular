@@ -1,0 +1,63 @@
+<div class="container">
+    <h2 mat-dialog-title>{{operacion}} Persona</h2>
+    <mat-spinner [diameter]="30" *ngIf="idLoading"></mat-spinner>
+</div>
+
+<form [formGroup]="formGroup" (ngSubmit)="savePersona()">
+    <mat-dialog-content class="mat-typography">
+        <mat-grid-list cols="2" rowHeight="75px">
+            <mat-grid-tile [colspan]="2">
+                <mat-form-field appearance="fill" class="inputPersona">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Nombre" autocomplete="off" formControlName="nombre">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill" class="inputPersona">
+                    <mat-label>Apellido paterno</mat-label>
+                    <input matInput placeholder="Apellido paterno" autocomplete="off" formControlName="apellidoPaterno">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill" class="inputPersona">
+                    <mat-label>Apellido materno</mat-label>
+                    <input matInput placeholder="Apellido materno" autocomplete="off" formControlName="apellidoMaterno">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="inputPersona">
+                    <mat-label>Tipo Documento</mat-label>
+                    <mat-select formControlName="idTipoDocumento">
+                        <mat-option *ngFor="let tipoDocumento of tiposDocumento"
+                            [value]="tipoDocumento.idTipoDocumento">{{tipoDocumento.tipoDocumento}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill" class="inputPersona">
+                    <mat-label>Numero documento</mat-label>
+                    <input matInput placeholder="Numero documento" autocomplete="off" formControlName="numeroDocumento">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2">
+                <mat-form-field appearance="fill" class="inputPersona">
+                    <mat-label>Correo</mat-label>
+                    <input matInput placeholder="Correo" autocomplete="off" formControlName="correo">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="example-full-width inputPersona">
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input [max]="maxDate" matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button type="button" mat-button (click)="cancelar()">Cancel</button>
+        <button [disabled]="formGroup.invalid" type="submit" mat-button cdkFocusInitial>Guardar</button>
+    </mat-dialog-actions>
+</form>

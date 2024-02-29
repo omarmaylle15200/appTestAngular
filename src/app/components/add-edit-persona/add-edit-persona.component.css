@@ -1,0 +1,20 @@
+mat-grid-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 1px solid #777;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); */
+}
+
+.inputPersona{
+    width: 100% !important;
+}
+
+.error{
+    color: rgb(214, 7, 7);
+    margin-top: -10px !important;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}

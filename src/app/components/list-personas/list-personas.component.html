@@ -1,0 +1,63 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Listado de personas</span>
+</mat-toolbar>
+
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+<mat-card>
+    <mat-grid-list cols="2" rowHeight="100px">
+        <mat-form-field>
+            <mat-label>Búsqueda</mat-label>
+            <input matInput (keyup)="filtrar($event)" placeholder="Buscar" #input>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="agregarPersona()">Agregar</button>
+    </mat-grid-list>
+
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z3" matSort>
+
+            <ng-container matColumnDef="TipoDocumento">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Documento </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipoDocumento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="NumeroDocumento">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Numero de Documento </th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroDocumento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Persona">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Persona </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} {{element.apellidoPaterno}}
+                    {{element.apellidoMaterno}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Correo">
+                <th mat-header-cell *matHeaderCellDef> Correo </th>
+                <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="FechaNacimiento">
+                <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaNacimiento | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Acción">
+                <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon (click)="editPersona(element.idPersona)" class="btnEdit" matTooltip="Editar {{element.nombre}}">edit</mat-icon>
+                    <mat-icon (click)="deletePersona(element.idPersona)" class="btnDelete" matTooltip="Eliminar {{element.nombre}}">delete</mat-icon>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+    </mat-card-content>
+
+</mat-card>
